@@ -1,0 +1,25 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+# aixio (https://gitlab.com/aixio)  1 minute ag
+build:
+  stage: build
+  image: registry.dp.tech/public/docker:20.10.16
+
+  services:
+    - name: registry.dp.tech/public/docker:20.10.16-dind
+      alias: docker
+
+  tags:
+    - shared-cpu-abroad
+  script:
+    - docker login -u dplc@dptech -p 'LMrQAi)&NOoV3370qvzL#oAqqaUH}Dob' dp-harbor-registry.us-east-1.cr.aliyuncs.com
+    - HASH=$(date +%Y%m%d%H%M%S)
+    - IMAGE_NAME="dp-harbor-registry.us-east-1.cr.aliyuncs.com/sync/dplc/qsar:static-$HASH"
+    - DP_IMAGE_NAME="registry.dp.tech/sync/dplc/qsar:static-$HASH"
+    - docker buildx create --use
+    - docker buildx build --platform=linux/arm64,linux/amd64  -t $IMAGE_NAME --push .
+    - echo $DP_IMAGE_NAME
+  only:
+    - main
+    - static-page
