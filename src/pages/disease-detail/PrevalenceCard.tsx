@@ -417,8 +417,14 @@ function PrevalenceCard() {
       <div className="text-[16px] font-[500] text-[#374151] mb-2">
         Prevalence
       </div>
-      <div className="grid grid-cols-5 bg-[#f8f9fa]  gap-3">
-        <div className="col-span-3 rounded-lg p-3 text-[14px] text-[#6B7280] leading-relaxed">
+      <div className="flex flex-col lg:grid lg:grid-cols-5 bg-[#f8f9fa] gap-3">
+        <div
+          className="lg:col-span-3 order-2 lg:order-1 rounded-lg p-3 text-[14px] text-[#6B7280] leading-relaxed
+                        lg:block
+                        md:hidden sm:hidden
+                        xl:col-span-3
+                        2xl:col-span-3"
+        >
           <div className="mb-2">
             There were an estimated{" "}
             <span className="font-bold text-primary">2.3 million</span> new
@@ -435,14 +441,32 @@ function PrevalenceCard() {
             (13.9 cases per 100,000 women annually).
           </div>
         </div>
-        <svg
-          ref={chartRef}
-          width="100%"
-          height="350"
-          //   viewBox="0 0 600 350"
-          className="overflow-visible"
-          style={{ background: "transparent" }}
-        />
+
+        {/* 小屏幕简化文字版本 */}
+        <div className="lg:hidden order-2 rounded-lg p-2 text-[12px] text-[#6B7280] leading-relaxed">
+          <div className="text-center">
+            <span className="font-bold text-primary">2.3M</span> new cases
+            worldwide (2022) • TNBC accounts for{" "}
+            <span className="font-bold text-primary">10.65%</span> of breast
+            cancers
+          </div>
+        </div>
+
+        <div
+          className="lg:col-span-2 order-1 lg:order-2 
+                        flex justify-center items-center
+                        min-w-0 overflow-hidden"
+        >
+          <svg
+            ref={chartRef}
+            width="100%"
+            height="350"
+            className="overflow-visible max-w-full"
+            style={{ background: "transparent" }}
+            viewBox="0 0 600 350"
+            preserveAspectRatio="xMidYMid meet"
+          />
+        </div>
       </div>
     </div>
   );

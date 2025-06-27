@@ -387,17 +387,20 @@ function PatientProfile() {
       .attr("x", 16)
       .attr("y", 6)
       .attr("dy", "0.35em")
-      .style("font-size", "12px")
+      .style("font-size", "11px")
       .style("font-weight", "500")
       .style("fill", "#374151")
       .text((d: any) => {
-        // 缩短标签文字
-        // if (d.race.length > 18) {
-        //   return d.race.substring(0, 16) + "...";
-        // }
-        return d.race;
+        // 缩短长标签文字
+        const raceMap: { [key: string]: string } = {
+          "Non-Hispanic Black": "NH Black",
+          Hispanics: "Hispanic",
+          "Non-Hispanic White": "NH White",
+          "Non-Hispanic American Indian / Alaska Native": "NH AI/AN",
+          "Non-Hispanic Asians and Pacific Islanders": "NH API",
+        };
+        return raceMap[d.race] || d.race;
       });
-
     // 添加标题
     svg
       .append("text")
