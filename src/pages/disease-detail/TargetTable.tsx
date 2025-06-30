@@ -12,7 +12,7 @@ function TargetTable() {
       targetName: "CXCR4",
       fullName: "POL6326",
       targeType: "GPCRs",
-      researchActivity: 1,
+      rank: 1,
       patents: 17,
       LatestPhase: "Phase II",
       publications: 69,
@@ -22,7 +22,7 @@ function TargetTable() {
       targetName: "PD-L1",
       fullName: "IMpassion130",
       targeType: "Immune Checkpoints / Targets",
-      researchActivity: 5,
+      rank: 5,
       patents: 352,
       LatestPhase: "Commercial",
       publications: 1909,
@@ -32,7 +32,7 @@ function TargetTable() {
       targetName: "EGFR",
       fullName: "DB01269",
       targeType: "Kinases",
-      researchActivity: 4,
+      rank: 4,
       patents: 262,
       LatestPhase: "Phase II",
       publications: 1631,
@@ -42,7 +42,7 @@ function TargetTable() {
       targetName: "BRCA2",
       fullName: "AZD2281",
       targeType: "DNA Damage Repair Proteins",
-      researchActivity: 5,
+      rank: 5,
       patents: 105,
       LatestPhase: "Commercial",
       publications: 343,
@@ -52,7 +52,7 @@ function TargetTable() {
       targetName: "BCL2",
       fullName: "ABT-199",
       targeType: "Others / Unclassified",
-      researchActivity: 3,
+      rank: 3,
       patents: 98,
       LatestPhase: "Preclinical",
       publications: 341,
@@ -62,7 +62,7 @@ function TargetTable() {
       targetName: "CD44",
       fullName: "RG7356",
       targeType: "Membrane Proteins (Non-GPCR)",
-      researchActivity: 2,
+      rank: 2,
       patents: 88,
       LatestPhase: "Phase I",
       publications: 321,
@@ -70,11 +70,11 @@ function TargetTable() {
     },
     {
       targetName: "CDK4",
-      fullName: "NCI C104080",
+      fullName: "NCT03130439",
       targeType: "Kinases",
-      researchActivity: 4,
+      rank: 4,
       patents: 45,
-      LatestPhase: "Phase II/III",
+      LatestPhase: "Phase II",
       publications: 166,
       citations: 2967,
     },
@@ -82,7 +82,7 @@ function TargetTable() {
       targetName: "PARP1",
       fullName: "BMN 673",
       targeType: "DNA Damage Repair Proteins",
-      researchActivity: 5,
+      rank: 5,
       patents: 43,
       LatestPhase: "Commercial",
       publications: 145,
@@ -90,11 +90,11 @@ function TargetTable() {
     },
     {
       targetName: "EZH2",
-      fullName: "NCI C104001",
+      fullName: "IHMT-337",
       targeType: "Epigenetic Regulators",
-      researchActivity: 2,
+      rank: 2,
       patents: 36,
-      LatestPhase: "Commercial",
+      LatestPhase: "Preclinical",
       publications: 82,
       citations: 1054,
     },
@@ -102,7 +102,7 @@ function TargetTable() {
       targetName: "AKT1",
       fullName: "GDC-0068",
       targeType: "Kinases",
-      researchActivity: 2,
+      rank: 2,
       patents: 25,
       LatestPhase: "Phase II",
       publications: 80,
@@ -139,6 +139,24 @@ function TargetTable() {
     const width = 1200;
     const height = 600;
 
+    // 创建 tooltip
+    const tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "d3-tooltip-bubble")
+      .style("position", "absolute")
+      .style("visibility", "hidden")
+      .style("background", "rgba(0, 0, 0, 0.9)")
+      .style("color", "white")
+      .style("padding", "12px 16px")
+      .style("border-radius", "8px")
+      .style("font-size", "13px")
+      .style("line-height", "1.4")
+      .style("box-shadow", "0 4px 12px rgba(0,0,0,0.15)")
+      .style("pointer-events", "none")
+      .style("z-index", "1000")
+      .style("max-width", "300px");
+
     // 气泡大小比例尺 - 基于 researchActivity
     const radiusScale = d3
       .scaleSqrt()
@@ -160,7 +178,7 @@ function TargetTable() {
     // 准备数据，为每个气泡添加位置
     const bubbleData = targetData.map((d) => ({
       ...d,
-      radius: radiusScale(d.researchActivity),
+      radius: radiusScale(d.rank),
     }));
     const simulation = d3
       .forceSimulation(bubbleData as any)
@@ -193,7 +211,72 @@ function TargetTable() {
       .style("stroke", "white")
       .style("stroke-width", 3)
       .style("filter", "drop-shadow(2px 2px 4px rgba(0,0,0,0.2))")
-      .style("opacity", 0); // 从透明开始
+      .style("opacity", 0) // 从透明开始
+      .on("mouseenter", function (event, d: any) {
+        // 高亮当前气泡
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .style("fill-opacity", 1)
+          .style("stroke-width", 4)
+          .style("transform", "scale(1.1)");
+
+        // 显示 tooltip
+        tooltip
+          .html(
+            `
+            <div style="font-weight: 700; margin-bottom: 8px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 8px;">
+              ${d.targetName}
+            </div>
+            <div style="display: grid; gap: 4px;">
+              <div><span style="color: #bbb;">Drug Representative:</span> <span style="color: #fff;">${
+                d.fullName
+              }</span></div>
+              <div><span style="color: #bbb;">Type:</span> <span style="color: #fff;">${
+                d.targeType
+              }</span></div>
+              <div><span style="color: #bbb;">Publication:</span> <span style="color: #fff;">${
+                d.publications
+              }</span></div>
+              <div><span style="color: #bbb;">Citations:</span> <span style="color: #fff;">${d.citations.toLocaleString()}</span></div>
+              <div><span style="color: #bbb;">Patents:</span> <span style="color: #fff;">${
+                d.patents
+              }</span></div>
+              <div><span style="color: #bbb;">Most Advanced Drug Status:</span> <span style="color: ${getPhaseColor(
+                d.LatestPhase
+              )}; font-weight: 600;">${d.LatestPhase}</span></div>
+            </div>
+            `
+          )
+          .style("visibility", "visible")
+          .style("left", event.pageX + 15 + "px")
+          .style("top", event.pageY - 15 + "px")
+          .transition()
+          .duration(200)
+          .style("opacity", 1);
+      })
+      .on("mouseleave", function () {
+        // 恢复气泡状态
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .style("fill-opacity", 0.8)
+          .style("stroke-width", 3)
+          .style("transform", "scale(1)");
+
+        // 隐藏 tooltip
+        tooltip
+          .transition()
+          .duration(200)
+          .style("opacity", 0)
+          .on("end", () => tooltip.style("visibility", "hidden"));
+      })
+      .on("mousemove", function (event) {
+        // tooltip 跟随鼠标移动
+        tooltip
+          .style("left", event.pageX + 15 + "px")
+          .style("top", event.pageY - 15 + "px");
+      });
 
     // 气泡标签 - 立即显示
     const labels = bubbles
@@ -227,6 +310,7 @@ function TargetTable() {
     simulation.on("tick", () => {
       bubbles.attr("transform", (d: any) => `translate(${d.x},${d.y})`);
     });
+
     // 仿真停止后开始动画
     simulation.on("end", () => {
       // 气泡大小动画
@@ -329,6 +413,13 @@ function TargetTable() {
                   <div className="text-primary font-bold cursor-pointer">
                     {record.targetName}
                   </div>
+                </div>
+              ),
+            },
+            {
+              title: "Drug Representative",
+              render: (_, record) => (
+                <div className="flex flex-col gap-1 text-[16px]">
                   <span className="text-[14px] text-[#6B7280]">
                     {record.fullName}
                   </span>
@@ -381,7 +472,7 @@ function TargetTable() {
               title: "Rank",
               render: (_, record) => (
                 <div>
-                  <Rate value={record.researchActivity} />
+                  <Rate value={record.rank} />
                 </div>
               ),
             },
