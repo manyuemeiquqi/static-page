@@ -108,6 +108,26 @@ function TargetTable() {
       publications: 80,
       citations: 942,
     },
+    {
+      targetName: "VEGF",
+      fullName: "DB00112",
+      targeType: "Immune Checkpoints / Targets",
+      rank: 3, // *** 对应 rank 3
+      patents: 51,
+      LatestPhase: "Phase III",
+      publications: 401,
+      citations: 5680,
+    },
+    {
+      targetName: "ROR1",
+      fullName: "NBE-002",
+      targeType: "Transcription Factors",
+      rank: 2, // ** 对应 rank 2
+      patents: 39,
+      LatestPhase: "Phase I",
+      publications: 227,
+      citations: 2671,
+    },
   ];
 
   // 根据阶段获取颜色
