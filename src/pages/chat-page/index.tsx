@@ -1,10 +1,21 @@
 import {
+  CloudUploadOutlined,
   CopyOutlined,
   DislikeOutlined,
   LikeOutlined,
+  OpenAIFilled,
+  PaperClipOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { Bubble, Prompts, useXAgent, useXChat } from "@ant-design/x";
+import {
+  Attachments,
+  Bubble,
+  Prompts,
+  Sender,
+  Suggestion,
+  useXAgent,
+  useXChat,
+} from "@ant-design/x";
 import type { Conversation } from "@ant-design/x/es/conversations";
 import { Button, Space, Spin } from "antd";
 import { createStyles } from "antd-style";
@@ -42,7 +53,19 @@ const MOCK_SESSION_LIST = [
     group: "Yesterday",
   },
 ];
-
+const MOCK_SUGGESTIONS = [
+  { label: "Write a report", value: "report" },
+  { label: "Draw a picture", value: "draw" },
+  {
+    label: "Check some knowledge",
+    value: "knowledge",
+    icon: <OpenAIFilled />,
+    children: [
+      { label: "About React", value: "react" },
+      { label: "About Ant Design", value: "antd" },
+    ],
+  },
+];
 const MOCK_QUESTIONS = [
   "Why is TNBC considered more aggressive than other breast cancers?",
   "What are the common symptoms of TNBC?",
@@ -71,7 +94,6 @@ const useCopilotStyle = createStyles(({ token, css }) => {
     headerTitle: css`
       font-weight: 600;
       font-size: 15px;
-      padding-left: 8px;
     `,
     headerButton: css`
       font-size: 18px;
@@ -160,14 +182,21 @@ const CustomWelcome = () => (
 const Copilot = (props: CopilotProps) => {
   const { copilotOpen } = props;
   const { styles } = useCopilotStyle();
+  const attachmentsRef = useRef<any>(null);
   const abortController = useRef<AbortController>(null);
 
   // ==================== State ====================
 
   const [, setMessageHistory] = useState<Record<string, any>>({});
 
-  const [sessionList] = useState<Conversation[]>(MOCK_SESSION_LIST);
+  const [sessionList, setSessionList] =
+    useState<Conversation[]>(MOCK_SESSION_LIST);
   const [curSession] = useState(sessionList[0].key);
+
+  const [attachmentsOpen, setAttachmentsOpen] = useState(false);
+  const [files, setFiles] = useState<any>([]);
+
+  const [inputValue, setInputValue] = useState("");
 
   /**
    * 🔔 Please replace the BASE_URL, PATH, MODEL, API_KEY with your own values.
@@ -182,9 +211,9 @@ const Copilot = (props: CopilotProps) => {
     dangerouslyApiKey: "Bearer sk-xxxxxxxxxxxxxxxxxxxx",
   });
 
-  // const loading = agent.isRequesting();
+  const loading = agent.isRequesting();
 
-  const { messages } = useXChat({
+  const { messages, onRequest } = useXChat({
     agent,
     requestFallback: (_, { error }) => {
       if (error.name === "AbortError") {
@@ -239,35 +268,35 @@ const Copilot = (props: CopilotProps) => {
   });
 
   // ==================== Event ====================
-  // const handleUserSubmit = (val: string) => {
-  //   onRequest({
-  //     stream: true,
-  //     message: { content: val, role: "user" },
-  //   });
+  const handleUserSubmit = (val: string) => {
+    onRequest({
+      stream: true,
+      message: { content: val, role: "user" },
+    });
 
-  //   // session title mock
-  //   if (
-  //     sessionList.find((i) => i.key === curSession)?.label === "New session"
-  //   ) {
-  //     setSessionList(
-  //       sessionList.map((i) =>
-  //         i.key !== curSession ? i : { ...i, label: val?.slice(0, 20) }
-  //       )
-  //     );
-  //   }
-  // };
+    // session title mock
+    if (
+      sessionList.find((i) => i.key === curSession)?.label === "New session"
+    ) {
+      setSessionList(
+        sessionList.map((i) =>
+          i.key !== curSession ? i : { ...i, label: val?.slice(0, 20) }
+        )
+      );
+    }
+  };
 
-  // const onPasteFile = (_: File, files: FileList) => {
-  //   for (const file of files) {
-  //     attachmentsRef.current?.upload(file);
-  //   }
-  //   setAttachmentsOpen(true);
-  // };
+  const onPasteFile = (_: File, files: FileList) => {
+    for (const file of files) {
+      attachmentsRef.current?.upload(file);
+    }
+    setAttachmentsOpen(true);
+  };
 
   // ==================== Nodes ====================
   const chatHeader = (
     <div className={styles.chatHeader}>
-      <div className={styles.headerTitle}> 🧬 AI Disease Navigation</div>
+      <div className={styles.headerTitle}>AI Disease Navigation</div>
       <Space size={0}>
         {/* <Button
           type="text"
@@ -406,104 +435,104 @@ const Copilot = (props: CopilotProps) => {
       )}
     </div>
   );
-  // const sendHeader = (
-  //   <Sender.Header
-  //     title="Upload File"
-  //     styles={{ content: { padding: 0 } }}
-  //     open={attachmentsOpen}
-  //     onOpenChange={setAttachmentsOpen}
-  //     forceRender
-  //   >
-  //     <Attachments
-  //       ref={attachmentsRef}
-  //       beforeUpload={() => false}
-  //       items={files}
-  //       onChange={({ fileList }) => setFiles(fileList)}
-  //       placeholder={(type) =>
-  //         type === "drop"
-  //           ? { title: "Drop file here" }
-  //           : {
-  //               icon: <CloudUploadOutlined />,
-  //               title: "Upload files",
-  //               description: "Click or drag files to this area to upload",
-  //             }
-  //       }
-  //     />
-  //   </Sender.Header>
-  // );
-  // const chatSender = (
-  //   <div className={styles.chatSend}>
-  //     <div className={styles.sendAction}>
-  //       <Button
-  //         icon={<ScheduleOutlined />}
-  //         onClick={() => handleUserSubmit("What has Ant Design X upgraded?")}
-  //       >
-  //         Upgrades
-  //       </Button>
-  //       <Button
-  //         icon={<ProductOutlined />}
-  //         onClick={() =>
-  //           handleUserSubmit(
-  //             "What component assets are available in Ant Design X?"
-  //           )
-  //         }
-  //       >
-  //         Components
-  //       </Button>
-  //       <Button icon={<AppstoreAddOutlined />}>More</Button>
-  //     </div>
+  const sendHeader = (
+    <Sender.Header
+      title="Upload File"
+      styles={{ content: { padding: 0 } }}
+      open={attachmentsOpen}
+      onOpenChange={setAttachmentsOpen}
+      forceRender
+    >
+      <Attachments
+        ref={attachmentsRef}
+        beforeUpload={() => false}
+        items={files}
+        onChange={({ fileList }) => setFiles(fileList)}
+        placeholder={(type) =>
+          type === "drop"
+            ? { title: "Drop file here" }
+            : {
+                icon: <CloudUploadOutlined />,
+                title: "Upload files",
+                description: "Click or drag files to this area to upload",
+              }
+        }
+      />
+    </Sender.Header>
+  );
+  const chatSender = (
+    <div className={styles.chatSend}>
+      {/* <div className={styles.sendAction}>
+        <Button
+          icon={<ScheduleOutlined />}
+          onClick={() => handleUserSubmit("What has Ant Design X upgraded?")}
+        >
+          Upgrades
+        </Button>
+        <Button
+          icon={<ProductOutlined />}
+          onClick={() =>
+            handleUserSubmit(
+              "What component assets are available in Ant Design X?"
+            )
+          }
+        >
+          Components
+        </Button>
+        <Button icon={<AppstoreAddOutlined />}>More</Button>
+      </div> */}
 
-  //     {/** 输入框 */}
-  //     <Suggestion
-  //       items={MOCK_SUGGESTIONS}
-  //       onSelect={(itemVal) => setInputValue(`[${itemVal}]:`)}
-  //     >
-  //       {({ onTrigger, onKeyDown }) => (
-  //         <Sender
-  //           loading={loading}
-  //           value={inputValue}
-  //           onChange={(v) => {
-  //             onTrigger(v === "/");
-  //             setInputValue(v);
-  //           }}
-  //           onSubmit={() => {
-  //             handleUserSubmit(inputValue);
-  //             setInputValue("");
-  //           }}
-  //           onCancel={() => {
-  //             abortController.current?.abort();
-  //           }}
-  //           allowSpeech
-  //           placeholder="Ask or input / use skills"
-  //           onKeyDown={onKeyDown}
-  //           header={sendHeader}
-  //           prefix={
-  //             <Button
-  //               type="text"
-  //               icon={<PaperClipOutlined style={{ fontSize: 18 }} />}
-  //               onClick={() => setAttachmentsOpen(!attachmentsOpen)}
-  //             />
-  //           }
-  //           onPasteFile={onPasteFile}
-  //           actions={(_, info) => {
-  //             const { SendButton, LoadingButton, SpeechButton } =
-  //               info.components;
-  //             return (
-  //               <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-  //                 <SpeechButton className={styles.speechButton} />
-  //                 {loading ? (
-  //                   <LoadingButton type="default" />
-  //                 ) : (
-  //                   <SendButton type="primary" />
-  //                 )}
-  //               </div>
-  //             );
-  //           }}
-  //         />
-  //       )}
-  //     </Suggestion>
-  //   </div>
-  // );
+      {/** 输入框 */}
+      <Suggestion
+        items={MOCK_SUGGESTIONS}
+        onSelect={(itemVal) => setInputValue(`[${itemVal}]:`)}
+      >
+        {({ onTrigger, onKeyDown }) => (
+          <Sender
+            loading={loading}
+            value={inputValue}
+            onChange={(v) => {
+              onTrigger(v === "/");
+              setInputValue(v);
+            }}
+            onSubmit={() => {
+              handleUserSubmit(inputValue);
+              setInputValue("");
+            }}
+            onCancel={() => {
+              abortController.current?.abort();
+            }}
+            allowSpeech
+            placeholder="Ask or input / use skills"
+            onKeyDown={onKeyDown}
+            header={sendHeader}
+            prefix={
+              <Button
+                type="text"
+                icon={<PaperClipOutlined style={{ fontSize: 18 }} />}
+                onClick={() => setAttachmentsOpen(!attachmentsOpen)}
+              />
+            }
+            onPasteFile={onPasteFile}
+            actions={(_, info) => {
+              const { SendButton, LoadingButton, SpeechButton } =
+                info.components;
+              return (
+                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <SpeechButton className={styles.speechButton} />
+                  {loading ? (
+                    <LoadingButton type="default" />
+                  ) : (
+                    <SendButton type="primary" />
+                  )}
+                </div>
+              );
+            }}
+          />
+        )}
+      </Suggestion>
+    </div>
+  );
 
   useEffect(() => {
     // history mock
@@ -527,7 +556,7 @@ const Copilot = (props: CopilotProps) => {
       {chatList}
 
       {/** 对话区 - 输入框 */}
-      {/* {chatSender} */}
+      {chatSender}
     </div>
   );
 };

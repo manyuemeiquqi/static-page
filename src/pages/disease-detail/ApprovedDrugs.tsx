@@ -92,8 +92,7 @@ function ApprovedDrugs() {
     {
       drugName: "Gemcitabine",
       rdCompany: "Eli Lilly & Company",
-      manufacturer:
-        "CHEPLAPHARM（CHEPLAPHARM Group now owns the worldwide rights (except South Korea) to Gemzar. ）",
+      manufacturer: "CHEPLAPHARM",
       modality: "small molecule",
       id: "CHEMBL888",
       target: "DNA synthesis",
