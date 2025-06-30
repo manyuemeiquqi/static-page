@@ -69,7 +69,7 @@ function DiseaseQuery() {
   useEffect(() => {
     if (!isLoading) return;
 
-    const totalDuration = 3000; // 3秒总时长
+    const totalDuration = 6000; // 3秒总时长
     const progressInterval = 50; // 进度更新间隔
 
     const progressTimer = setInterval(() => {
