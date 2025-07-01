@@ -68,7 +68,7 @@ const MOCK_SUGGESTIONS = [
 ];
 const MOCK_QUESTIONS = [
   "Why is TNBC considered more aggressive than other breast cancers?",
-  "What are the common symptoms of TNBC?",
+  "What are the common approaches of TNBC diagnosis?",
   "Are there reliable in vitro/in vivo models or biomarkers to support discovery and preclinical testing?",
 ];
 const AGENT_PLACEHOLDER = "Generating content, please wait...";
