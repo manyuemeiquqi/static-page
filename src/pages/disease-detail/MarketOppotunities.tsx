@@ -196,33 +196,33 @@ function MarketOpportunities() {
 
               {/* 参考链接 */}
               <div className="border-t border-gray-200 pt-3">
-                <div className="text-[11px] text-gray-500 mb-2 font-medium">
+                <div className="text-[14px] text-gray-500 mb-2 font-medium">
                   References:
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-400 flex-shrink-0">
+                    <span className="text-[14px] text-gray-400 flex-shrink-0">
                       [1]
                     </span>
                     <a
                       href="https://www.credenceresearch.com/report/triple-negative-breast-cancer-tnbc-market#:~:text=%7CTriple,which%20underscores%20the%20urgent%20need%20for%20innovative%20therapies%20and%20enhanced%20diagnostic%20tools"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] text-blue-600 hover:text-blue-800 hover:underline transition-colors leading-tight"
+                      className="text-[14px] text-blue-600 hover:text-blue-800 hover:underline transition-colors leading-tight"
                     >
                       Credence Research - Triple Negative Breast Cancer Market
                       Report
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-400 flex-shrink-0">
+                    <span className="text-[14px] text-gray-400 flex-shrink-0">
                       [2]
                     </span>
                     <a
                       href="https://dataintelo.com/report/global-triple-negative-breast-cancer-treatment-market#:~:text=Triple,which%20hold%20promise%20for%20better%20patient%20outcomes%20and%20are%20accelerating%20market%20growth"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] text-blue-600 hover:text-blue-800 hover:underline transition-colors leading-tight"
+                      className="text-[14px] text-blue-600 hover:text-blue-800 hover:underline transition-colors leading-tight"
                     >
                       DataIntelo - Global TNBC Treatment Market Analysis
                     </a>
@@ -230,19 +230,19 @@ function MarketOpportunities() {
                 </div>
               </div>
               {/* 增长因素提示 */}
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  <span className="text-[11px] font-medium text-amber-800">
-                    Key Growth Drivers
-                  </span>
-                </div>
-                <div className="text-[10px] text-amber-700 leading-relaxed">
-                  Urgent need for innovative therapies and enhanced diagnostic
-                  tools underscores the market expansion potential.
-                </div>
-              </div>
             </div>
+          </div>
+        </div>
+        <div className="bg-amber-50 border mt-4 border-amber-200 rounded-lg p-3">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+            <span className="text-[14px] font-medium text-amber-800">
+              Key Growth Drivers
+            </span>
+          </div>
+          <div className="text-[14px] text-amber-700 leading-relaxed">
+            Urgent need for innovative therapies and enhanced diagnostic tools
+            underscores the market expansion potential.
           </div>
         </div>
       </div>
