@@ -234,8 +234,7 @@ function PrevalenceCard() {
       .ease(d3.easeCubicOut)
       .attr("y", (d) => yScale(d.tnbcCases))
       .attr("height", (d) => height - yScale(d.tnbcCases));
-
-    // 数值标签
+    // 数值标签 - 使用条件判断
     const labels = bars
       .append("text")
       .attr("x", xScale.bandwidth() / 2)
@@ -246,11 +245,12 @@ function PrevalenceCard() {
       .style("fill", "#374151")
       .style("opacity", 0);
 
-    // 标签动画
+    // 标签动画 - 只对第一个和最后一个显示
     labels
+      .filter((_, i) => i === 0 || i === tnbcTrendData.length - 1)
       .transition()
       .duration(1200)
-      .delay((_, i) => i * 120 + 600)
+      .delay((_, i) => (i === 0 ? 600 : (tnbcTrendData.length - 1) * 120 + 600))
       .attr("y", (d) => yScale(d.tnbcCases) - 8)
       .style("opacity", 1)
       .text((d) => `${(d.tnbcCases / 1000000).toFixed(1)}M`);

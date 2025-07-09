@@ -128,6 +128,17 @@ function TargetTable() {
       publications: 227,
       citations: 2671,
     },
+    // Trop‑2	Membrane Proteins (Non-GPCR)	894	10531	193	Phase III	NCT05374512
+    {
+      targetName: "Trop-2",
+      fullName: "NCT05374512",
+      targeType: "Membrane Proteins (Non-GPCR)",
+      rank: 4, // ** 对应 rank 3
+      patents: 193,
+      LatestPhase: "Phase III",
+      publications: 894,
+      citations: 10531,
+    },
   ];
 
   // 根据阶段获取颜色
