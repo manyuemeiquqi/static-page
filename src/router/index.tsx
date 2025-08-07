@@ -1,4 +1,5 @@
 import DiseaseDetail from "../pages/disease-detail";
+import TargetDetail from "../pages/target-detail";
 import DiseaseQuery from "../pages/disease-query";
 import { createBrowserRouter } from "react-router";
 
@@ -11,6 +12,10 @@ const defaultRouterList: any[] = [
   {
     path: "/detail",
     element: <DiseaseDetail />,
+  },
+  {
+    path: "/target-detail",
+    element: <TargetDetail />,
   },
 ];
 

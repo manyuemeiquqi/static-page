@@ -86,7 +86,8 @@ function DiseaseQuery() {
         if (newProgress >= 100) {
           clearInterval(progressTimer);
           setTimeout(() => {
-            navigate("/detail");
+            if (searchType === "disease") navigate("/detail");
+            else if (searchType === "target") navigate("/target-detail");
           }, 200);
           return 100;
         }
