@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router";
 import CopilotDemo from "../chat-page";
 import Approveddrugs from "./Approveddrugs";
-import Approveddrugssales from "./approveddrugssale";
 import MarketOpportunities from "./MarketOppotunities";
+import PipelineDrugs from "./pipelinedrugs";
+import SwotAnalysis from "./swotanalysis";
+import KeyDevelopment from "./keydevelopment";
 
 function TargetDetail() {
   const navigate = useNavigate();
@@ -169,8 +171,10 @@ function TargetDetail() {
             </Col>
           </Row> */}
           <MarketOpportunities />
+          <SwotAnalysis />
+          <KeyDevelopment/>
           <Approveddrugs />
-          <Approveddrugssales />
+          <PipelineDrugs/>
           {/* <Row className="mt-4" gutter={16}>
             <Col span={12}>
               <div className="shadow-card  h-[200px]">
@@ -220,7 +224,7 @@ function TargetDetail() {
           {/* 在 Associated Targets 上方添加 Approved Drugs 表格 */}
           <div className="shadow-card mt-4">
             <div className="flex items-center justify-between mb-4">
-              <div className="card-title">New and Publications</div>
+              <div className="card-title">Key Development</div>
 
               {/* 切换标签 */}
             </div>

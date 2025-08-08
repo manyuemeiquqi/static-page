@@ -16,6 +16,9 @@ function Approveddrugs() {
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Olaparib#section=2D-Structure",
       positioning:
         "First-in-class PARP inhibitor; broadest label across multiple tumor types",
+      owner: "KuDOS Pharmaceuticals (UK) (acquired)",
+      mcompany: "AstraZeneca and Merck & Co. (MSD) (co-marketing, U.S.)",
+      gsales: "$4 billion(2027)",
     },
     {
       name: "Rucaparib",
@@ -25,6 +28,10 @@ function Approveddrugs() {
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Rucaparib#section=2D-Structure",
       positioning:
         "Second-line maintenance in ovarian cancer; targeted therapy in BRCA-mutated tumors",
+      owner: "Clovis Oncology",
+      mcompany:
+        "Clovis Oncology (filed bankruptcy in 2022); rights sold to Pharma&, Fresenius Kabi in some regions",
+      gsales: "$3.6 billion(2032)",
     },
     {
       name: "Niraparib",
@@ -33,6 +40,9 @@ function Approveddrugs() {
       indication: "Ovarian, fallopian tube, peritoneal cancer",
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Niraparib#section=2D-Structure",
       positioning: "regardless of BRCA/HRD status",
+      owner: "Tesaro (U.S.)",
+      mcompany: "GSK (GlaxoSmithKline) — acquired Tesaro in 2019",
+      gsales: "$1.5 billion(2027)",
     },
     {
       name: "Talazoparib",
@@ -42,6 +52,9 @@ function Approveddrugs() {
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Talazoparib#section=2D-Structure",
       positioning:
         "Metastatic breast cancer (BRCA+); first-line or later lines",
+      owner: "BioMarin (discovery stage)",
+      mcompany: "Pfizer (acquired from Medivation in 2016)",
+      gsales: "$929 million(2030)",
     },
     {
       name: "Pamiparib",
@@ -51,6 +64,9 @@ function Approveddrugs() {
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Pamiparib#section=2D-Structure",
       positioning:
         "China-focused PARP inhibitor; ovarian cancer maintenance therapy",
+      owner: "BeiGene (China)",
+      mcompany: "BeiGene (NMPA-approved in China)",
+      gsales: "$70 million(2027)",
     },
     {
       name: "Fluzoparib",
@@ -59,6 +75,9 @@ function Approveddrugs() {
       indication: "Ovarian, breast cancer",
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Fluzoparib#section=2D-Structure",
       positioning: "China-approved PARP inhibitor; ovarian and breast cancer",
+      owner: "Jiangsu Hengrui Pharma (China)",
+      mcompany: "Hengrui (marketed in China)",
+      gsales: "$150–250 million(2027)",
     },
     {
       name: "Senaparib",
@@ -67,6 +86,10 @@ function Approveddrugs() {
       indication: "Ovarian, fallopian tube or primary peritoneal cancer",
       url: "https://pubchem.ncbi.nlm.nih.gov/compound/Senaparib#section=2D-Structure",
       positioning: "China-approved PARP inhibitor; ovarian cancer",
+      owner: "IMPACT Therapeutics(China)",
+      mcompany:
+        "Hangzhou Zhongmei Huadong Pharmaceutical Co., Ltd(marketed in China)",
+      gsales: "",
     },
   ];
 
@@ -368,7 +391,7 @@ function Approveddrugs() {
                   </div>
                 </div>
               ),
-              width: 120,
+              width: 150,
             },
             {
               title: "Reference",
@@ -386,6 +409,42 @@ function Approveddrugs() {
                 ) : (
                   <span className="text-[#9CA3AF] text-[14px]">N/A</span>
                 ),
+              width: 200,
+            },
+            {
+              title: "global sales (estimated)",
+              dataIndex: "sale",
+              render: (_, record) => (
+                <div className="flex flex-col gap-1">
+                  <div className="text-[#6B7280] font-medium text-[15px]">
+                    {record.gsales}
+                  </div>
+                </div>
+              ),
+              width: 150,
+            },
+            {
+              title: "Original Developer / Owner",
+              dataIndex: "ower",
+              render: (_, record) => (
+                <div className="flex flex-col gap-1">
+                  <div className="text-[#6B7280] font-medium text-[15px]">
+                    {record.owner}
+                  </div>
+                </div>
+              ),
+              width: 180,
+            },
+            {
+              title: "Current Marketing Company",
+              dataIndex: "mcompany",
+              render: (_, record) => (
+                <div className="flex flex-col gap-1">
+                  <div className="text-[#6B7280] font-medium text-[15px]">
+                    {record.mcompany}
+                  </div>
+                </div>
+              ),
               width: 200,
             },
           ]}
