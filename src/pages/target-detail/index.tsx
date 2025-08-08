@@ -5,6 +5,7 @@ import MarketOpportunities from "./MarketOppotunities";
 import PipelineDrugs from "./pipelinedrugs";
 import SwotAnalysis from "./swotanalysis";
 import KeyDevelopment from "./keydevelopment";
+import PositioningParadigm from "./positioningparadigm";
 
 function TargetDetail() {
   const navigate = useNavigate();
@@ -174,7 +175,8 @@ function TargetDetail() {
           <SwotAnalysis />
           <KeyDevelopment/>
           <Approveddrugs />
-          <PipelineDrugs/>
+          <PipelineDrugs />
+          <PositioningParadigm/>
           {/* <Row className="mt-4" gutter={16}>
             <Col span={12}>
               <div className="shadow-card  h-[200px]">
