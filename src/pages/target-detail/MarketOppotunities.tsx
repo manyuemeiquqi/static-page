@@ -1,5 +1,6 @@
 import Growingtrend from "./globalincreasetable.tsx";
 import Companyshare from "./Marketshare.tsx";
+import GlobalMap from "./globalmap.tsx";
 
 function MarketOpportunities() {
   return (
@@ -21,6 +22,7 @@ function MarketOpportunities() {
               Global distribution map
             </div>
             {/*global map*/}
+            <GlobalMap />
           </div>
         </div>
       </div>

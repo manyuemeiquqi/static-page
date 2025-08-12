@@ -11,32 +11,32 @@ function Companyshare() {
       {
         name: "Merck",
         percentage: 18,
-        color: "#8B5CF6",
+        color: "#8B5CF6", // 紫色
       },
       {
         name: "Thermo Fisher Scientific",
         percentage: 15,
-        color: "#3B82F6",
+        color: "#EC4899", // 粉色
       },
       {
         name: "Bio-Rad",
         percentage: 10,
-        color: "#10B981",
+        color: "#3B82F6", // 蓝色
       },
       {
         name: "Abcam",
         percentage: 8,
-        color: "#06B6D4",
+        color: "#10B981", // 绿色
       },
       {
         name: "Cell Signaling Technology",
         percentage: 7,
-        color: "#7C3AED",
+        color: "#F59E0B", // 橙色
       },
       {
         name: "Others",
         percentage: 39,
-        color: "#6B7280",
+        color: "#6B7280", // 灰色
       },
     ],
     []

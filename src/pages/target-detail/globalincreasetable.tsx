@@ -487,8 +487,8 @@ function Growingtrend() {
       <div className="grid grid-cols-5 bg-[#f8f9fa]  gap-3">
         <svg
           ref={chartRef}
-          width="400"
-          height="200"
+          width="450"
+          height="230"
           viewBox="0 0 400 200"
           className="overflow-visible"
           style={{ background: "transparent" }}

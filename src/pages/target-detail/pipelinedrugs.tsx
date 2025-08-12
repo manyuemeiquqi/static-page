@@ -607,7 +607,13 @@ function PipelineDrugs() {
                 title: "Drug Name",
                 render: (_, record) => (
                   <div className="flex flex-col gap-1">
-                    <div className="text-primary font-bold text-[15px]">
+                    <div
+                      className={`font-bold text-[15px] ${
+                        record.name.includes("(failed)")
+                          ? "text-gray-600"
+                          : "text-green-600"
+                      }`}
+                    >
                       {record.name}
                     </div>
                   </div>

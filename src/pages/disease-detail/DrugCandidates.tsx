@@ -435,7 +435,7 @@ function DrugCandidates() {
               title: "Target",
               dataIndex: "target",
               render: (text) => (
-                <div className="text-[14px] text-primary font-[500]">
+                <div className="text-[14px] text-green-600 font-[500]">
                   {text || "undisclosed"}
                 </div>
               ),

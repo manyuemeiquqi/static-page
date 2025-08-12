@@ -441,7 +441,7 @@ function TargetTable() {
               title: "Target",
               render: (_, record) => (
                 <div className="flex flex-col gap-1 text-[16px]">
-                  <div className="text-primary font-bold cursor-pointer">
+                  <div className="text-green-600 font-bold cursor-pointer">
                     {record.targetName}
                   </div>
                 </div>
@@ -503,7 +503,7 @@ function TargetTable() {
               title: "Rank",
               render: (_, record) => (
                 <div>
-                  <Rate value={record.rank} />
+                  <Rate value={record.rank} disabled />
                 </div>
               ),
             },

@@ -340,9 +340,14 @@ function ApprovedDrugs() {
               title: "Drug Name",
               render: (_, record) => (
                 <div className="flex flex-col gap-1">
-                  <div className="text-primary font-bold text-[15px]">
+                  <a
+                    href={record.ref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-bold text-[15px]"
+                  >
                     {record.drugName}
-                  </div>
+                  </a>
                   <div className="text-xs text-[#9CA3AF]">
                     ID: {record.id || "N/A"}
                   </div>
@@ -398,7 +403,7 @@ function ApprovedDrugs() {
               title: "Target",
               dataIndex: "target",
               render: (text) => (
-                <div className="text-primary font-[500] text-[14px]">
+                <div className="text-green-600 font-[500] text-[14px]">
                   {text || "-"}
                 </div>
               ),
