@@ -590,7 +590,6 @@ function Companyshare() {
       .style("font-weight", "500")
       .style("fill", "#374151")
       .text((d: any) => d.type);
-    
 
     // 添加标题
     svg

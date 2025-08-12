@@ -1,4 +1,3 @@
-import React from "react";
 
 interface SWOTItem {
   title: string;
@@ -153,22 +152,24 @@ function SwotAnalysis() {
             key={index}
             className={`${section.bgColor} ${section.borderColor} border-2 rounded-lg p-5`}
           >
-            <h3 className={`text-[16px] font-bold ${section.titleColor} mb-4`}>
+            <h3 className={`text-[19px] font-bold ${section.titleColor} mb-4`}>
               {section.title}
             </h3>
 
             <div className="space-y-4">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="text-[14px]">
+                <div key={itemIndex}>
                   <span
                     className={`font-semibold ${getContentTitleColor(
                       section.title
-                    )}`}
+                    )} text-[16px]`}
                   >
                     {item.title}
                   </span>
                   <span
-                    className={`${getContentTextColor(section.title)} ml-1`}
+                    className={`${getContentTextColor(
+                      section.title
+                    )} ml-1 text-[14px]`}
                   >
                     {item.content}
                   </span>

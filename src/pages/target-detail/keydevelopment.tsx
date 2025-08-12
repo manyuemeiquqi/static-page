@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface DevelopmentItem {
   date: string;
@@ -14,7 +14,7 @@ function KeyDevelopment() {
 
   const developmentData: DevelopmentItem[] = [
     {
-      date: "June 2, 2025",
+      date: "June 2025",
       category: "Partnership",
       title: "Scientists at UT Health San Antonio Discover Key DNA Complex",
       description:

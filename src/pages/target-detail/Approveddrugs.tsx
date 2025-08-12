@@ -299,7 +299,6 @@ function Approveddrugs() {
       .text((d: any) => `${d.modality} (${d.count})`);
   }, [modalityData, viewMode]);
 
-
   return (
     <div className="shadow-card mt-4">
       <div className="flex justify-between items-center mb-4">
@@ -335,9 +334,13 @@ function Approveddrugs() {
               title: "Drug Name",
               render: (_, record) => (
                 <div className="flex flex-col gap-1">
-                  <div className="text-primary font-bold text-[15px]">
+                  <a
+                    href={record.url}
+                    target="_blank"
+                    className="text-primary font-bold text-[15px]"
+                  >
                     {record.name}
-                  </div>
+                  </a>
                 </div>
               ),
               width: 100,
@@ -351,7 +354,7 @@ function Approveddrugs() {
                   </div>
                 </div>
               ),
-              width: 120,
+              width: 150,
             },
             {
               title: "Modality",
@@ -379,7 +382,7 @@ function Approveddrugs() {
                   </div>
                 );
               },
-              width: 120,
+              width: 100,
             },
             {
               title: "Strategic Positioning",
@@ -392,24 +395,6 @@ function Approveddrugs() {
                 </div>
               ),
               width: 150,
-            },
-            {
-              title: "Reference",
-              dataIndex: "url",
-              render: (text) =>
-                text ? (
-                  <a
-                    href={text}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline text-[14px] break-all"
-                  >
-                    {text.length > 50 ? `${text.substring(0, 50)}...` : text}
-                  </a>
-                ) : (
-                  <span className="text-[#9CA3AF] text-[14px]">N/A</span>
-                ),
-              width: 200,
             },
             {
               title: "global sales (estimated)",
@@ -464,4 +449,4 @@ function Approveddrugs() {
   );
 }
 
-export default Approveddrugs
+export default Approveddrugs;
