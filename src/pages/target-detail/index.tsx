@@ -224,13 +224,7 @@ function TargetDetail() {
           </Row>
           <div>接入私有化数据辅助决策</div> */}
           {/* 在 Associated Targets 上方添加 Approved Drugs 表格 */}
-          <div className="shadow-card mt-4">
-            <div className="flex items-center justify-between mb-4">
-              <div className="card-title">Key Development</div>
-
-              {/* 切换标签 */}
-            </div>
-          </div>
+    
         </div>
       </div>
 

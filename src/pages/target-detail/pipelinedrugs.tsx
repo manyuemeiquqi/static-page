@@ -711,6 +711,103 @@ function PipelineDrugs() {
           />
         </div>
       )}
+
+      <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="text-[18px] font-semibold text-[#374151] mb-4">
+          Conclusions
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Key Players Section */}
+          <div className="space-y-3">
+            <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
+              <span className="text-[#3B82F6]">🎯</span>
+              Key Players/Companies
+            </h4>
+            <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
+              <p>
+                • <strong>AstraZeneca & Merck & Co. (MSD):</strong> Leading the
+                PARP inhibitor market with multiple approved drugs and advanced
+                pipeline candidates
+              </p>
+              <p>
+                • <strong>GlaxoSmithKline (GSK):</strong> Established presence
+                with niraparib across multiple cancer types
+              </p>
+              <p>
+                • <strong>Pfizer:</strong> Strong position with talazoparib,
+                particularly in breast cancer
+              </p>
+            </div>
+          </div>
+
+          {/* Emerging Players Section */}
+          <div className="space-y-3">
+            <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
+              <span className="text-[#8B5CF6]">🔬</span>
+              Emerging Players (Pipeline)
+            </h4>
+            <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
+              <p>
+                • <strong>Impact Therapeutics:</strong> Developing novel PARP
+                inhibitors with unique chemical scaffolds
+              </p>
+              <p>
+                • <strong>Allarity Therapeutics / Eisai:</strong> Advancing
+                dual-target inhibitors for broader therapeutic applications
+              </p>
+              <p>
+                • <strong>Acerand Therapeutics:</strong> Exploring novel
+                indications beyond traditional cancer types
+              </p>
+            </div>
+          </div>
+
+          {/* China-Focused Players Section */}
+          <div className="space-y-3">
+            <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
+              <span className="text-[#10B981]">🌏</span>
+              China-Focused Players
+            </h4>
+            <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
+              <p>
+                • <strong>BeiGene:</strong> Developing pamiparib with regional
+                cost-effective strategies
+              </p>
+              <p>
+                • <strong>Jiangsu Hengrui Pharma:</strong> Advancing fluzoparib
+                and HRS-1167 with strong IP protection
+              </p>
+            </div>
+          </div>
+
+          {/* Mechanism Diversity Section */}
+          <div className="space-y-3">
+            <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
+              <span className="text-[#F59E0B]">⚡</span>
+              Mechanism Diversity
+            </h4>
+            <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
+              <p>
+                • <strong>PARP1-Selective Inhibitors:</strong> Next-generation
+                agents like AZD5305 and HRS-1167 offering improved selectivity
+              </p>
+              <p>
+                • <strong>Dual-Target Inhibitors:</strong> Stenoparib combining
+                PARP inhibition with other mechanisms
+              </p>
+              <p>
+                • <strong>Brain-Penetrant Inhibitors:</strong> NMS-293
+                addressing central nervous system malignancies
+              </p>
+              <p>
+                • <strong>Biomarker-Agnostic Approaches:</strong> Expanding
+                patient populations beyond BRCA mutations
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
