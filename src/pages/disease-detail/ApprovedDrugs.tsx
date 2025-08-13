@@ -16,6 +16,7 @@ function ApprovedDrugs() {
       id: "MK-3475",
       target: "PD-1",
       ref: "https://seer.cancer.gov/oncologytoolbox/canmed/hcpcs/J9271/",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/125514s096lbl.pdf",
     },
     {
       drugName: "Sacituzumab govitecan",
@@ -25,6 +26,7 @@ function ApprovedDrugs() {
       id: "NCT04617522",
       target: "Trop-2",
       ref: "https://en.wikipedia.org/wiki/Sacituzumab_govitecan",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/761115s009lbl.pdf",
     },
     {
       drugName: "Olaparib",
@@ -34,6 +36,7 @@ function ApprovedDrugs() {
       id: "AZD2281",
       target: "PARP1 / BRCA2",
       ref: "https://en.wikipedia.org/wiki/Olaparib",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/208558s014lbl.pdf",
     },
     {
       drugName: "Atezolizumab",
@@ -43,6 +46,7 @@ function ApprovedDrugs() {
       id: "MPDL3280A",
       target: "PD-L1",
       ref: "https://en.wikipedia.org/wiki/Atezolizumab",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/761034s043lbl.pdf",
     },
     {
       drugName: "Talazoparib",
@@ -52,6 +56,7 @@ function ApprovedDrugs() {
       id: "BMN-673",
       target: "PARP",
       ref: "https://en.wikipedia.org/wiki/Talazoparib",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/217439s000lbl.pdf",
     },
     {
       drugName: "Capecitabine",
@@ -61,6 +66,7 @@ function ApprovedDrugs() {
       id: "NCT00437294",
       target: "thymidylate synthase (TS)",
       ref: "https://en.wikipedia.org/wiki/Capecitabine",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/020896s044s045s046s047s048s049s050s051lbl.pdf",
     },
     {
       drugName: "Eribulin",
@@ -70,6 +76,7 @@ function ApprovedDrugs() {
       id: "E7389",
       target: "Microtubules",
       ref: "https://en.wikipedia.org/wiki/Eribulin",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/201532s023lbl.pdf",
     },
     {
       drugName: "Carboplatin",
@@ -79,6 +86,7 @@ function ApprovedDrugs() {
       id: "NSC-241240",
       target: "DNA",
       ref: "https://en.wikipedia.org/wiki/Carboplatin",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2012/077139Orig1s016lbl.pdf",
     },
     {
       drugName: "Cisplatin",
@@ -88,6 +96,7 @@ function ApprovedDrugs() {
       id: "NSC119875",
       target: "DNA",
       ref: "https://en.wikipedia.org/wiki/Cisplatin",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/018057s092lbl.pdf",
     },
     {
       drugName: "Gemcitabine",
@@ -97,6 +106,17 @@ function ApprovedDrugs() {
       id: "CHEMBL888",
       target: "DNA synthesis",
       ref: "https://en.wikipedia.org/wiki/Gemcitabine",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/209604s011lbl.pdf",
+    },
+    {
+      drugName: "Trastuzumab deruxtecan",
+      rdCompany: "AstraZeneca",
+      manufacturer: "Daiichi Sankyo",
+      modality: "ADC",
+      id: "",
+      target: "HER2",
+      ref: "https://en.wikipedia.org/wiki/Trastuzumab_deruxtecan",
+      fda: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/761139s011lbl.pdf",
     },
   ];
 
@@ -348,9 +368,6 @@ function ApprovedDrugs() {
                   >
                     {record.drugName}
                   </a>
-                  <div className="text-xs text-[#9CA3AF]">
-                    ID: {record.id || "N/A"}
-                  </div>
                 </div>
               ),
               width: 180,
@@ -410,8 +427,8 @@ function ApprovedDrugs() {
               width: 180,
             },
             {
-              title: "Reference",
-              dataIndex: "ref",
+              title: "FDA label link",
+              dataIndex: "fda",
               render: (text) =>
                 text ? (
                   <a
