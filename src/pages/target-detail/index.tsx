@@ -6,6 +6,8 @@ import PipelineDrugs from "./pipelinedrugs";
 import SwotAnalysis from "./swotanalysis";
 import KeyDevelopment from "./keydevelopment";
 import PositioningParadigm from "./positioningparadigm";
+import SafetyEvaluation from "./safetyevaluation";
+
 
 function TargetDetail() {
   const navigate = useNavigate();
@@ -173,10 +175,11 @@ function TargetDetail() {
           </Row> */}
           <MarketOpportunities />
           <SwotAnalysis />
-          <KeyDevelopment/>
+          <KeyDevelopment />
           <Approveddrugs />
           <PipelineDrugs />
-          <PositioningParadigm/>
+          <PositioningParadigm />
+          <SafetyEvaluation/>
           {/* <Row className="mt-4" gutter={16}>
             <Col span={12}>
               <div className="shadow-card  h-[200px]">
@@ -224,7 +227,6 @@ function TargetDetail() {
           </Row>
           <div>接入私有化数据辅助决策</div> */}
           {/* 在 Associated Targets 上方添加 Approved Drugs 表格 */}
-    
         </div>
       </div>
 
