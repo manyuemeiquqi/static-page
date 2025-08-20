@@ -149,12 +149,12 @@ function PipelineDrugs() {
     return Array.from(stageMap.values()).sort((a: any, b: any) => {
       const stageOrder: { [key: string]: number } = {
         Preclinical: 1,
-        "Phase I": 2,
-        "Phase I/II": 3,
-        "Phase II": 4,
-        "Phase I/III": 5,
-        "Phase III": 6,
-        "Early clinical": 7,
+        "Early clinical": 2,
+        "Phase I": 3,
+        "Phase I/II": 4,
+        "Phase II": 5,
+        "Phase I/III": 6,
+        "Phase III": 7,
       };
       return (stageOrder[a.stage] || 999) - (stageOrder[b.stage] || 999);
     });
@@ -213,7 +213,7 @@ function PipelineDrugs() {
 
     const svg = d3.select(pdrugsChartRef.current);
     const width = 800; // 从900减少到800
-    const height = 400; // 从450减少到400
+    const height = 500; // 增加高度以容纳所有12行药物
     const margin = { top: 8, right: 20, bottom: 8, left: 100 }; // 调整margin，top从10减少到8，left从120减少到100
 
     svg.attr("width", width).attr("height", height);
@@ -257,21 +257,21 @@ function PipelineDrugs() {
       // 定义阶段顺序和位置（横坐标）
       const stageOrder = [
         "Preclinical",
+        "Early clinical",
         "Phase I",
         "Phase I/II",
         "Phase II",
         "Phase I/III",
         "Phase III",
-        "Early clinical",
       ];
 
       // 获取所有药物名称（纵坐标）
       const allDrugs = pdrugsData.map((drug) => drug.name);
 
-      const stageWidth = 70; // 从100减少到70
-      const drugHeight = 28; // 从35减少到28
-      const stageSpacing = 10; // 从15减少到10
-      const drugSpacing = 3; // 从5减少到3
+      const stageWidth = 80; // 增加阶段宽度
+      const drugHeight = 32; // 增加药物行高度
+      const stageSpacing = 15; // 增加阶段间距
+      const drugSpacing = 5; // 增加药物行间距
 
       // 计算图表尺寸
       const chartWidth = stageOrder.length * (stageWidth + stageSpacing);
@@ -281,98 +281,122 @@ function PipelineDrugs() {
       stageOrder.forEach((stage, stageIndex) => {
         const x = stageIndex * (stageWidth + stageSpacing);
 
-        // 绘制阶段背景
+        // 绘制阶段背景 - 使用对应阶段的颜色
         ganttG
           .append("rect")
           .attr("x", x)
           .attr("y", 0)
           .attr("width", stageWidth)
-          .attr("height", 20) // 从25减少到20
-          .attr("fill", colorMapping[stage])
-          .attr("stroke", "white")
+          .attr("height", 25)
+          .attr("fill", colorMapping[stage]) // 使用阶段对应的颜色
+          .attr("stroke", "#E5E7EB")
           .attr("stroke-width", 1)
-          .attr("rx", 4);
+          .attr("rx", 6); // 圆角
 
         // 绘制阶段标签
         ganttG
           .append("text")
           .attr("x", x + stageWidth / 2)
-          .attr("y", 10) // 从12减少到10
+          .attr("y", 12.5)
           .attr("text-anchor", "middle")
           .attr("dominant-baseline", "middle")
-          .style("font-size", "10px") // 从11px减少到10px
+          .style("font-size", "11px")
           .style("font-weight", "600")
-          .style("fill", "white")
+          .style("fill", "#FFFFFF")
           .text(stage);
       });
 
-      // 添加阶段行标题
-      ganttG
-        .append("text")
-        .attr("x", -10)
-        .attr("y", 10) // 从12减少到10
-        .attr("text-anchor", "end")
-        .attr("dominant-baseline", "middle")
-        .style("font-size", "10px") // 从11px减少到10px
-        .style("font-weight", "600")
-        .style("fill", "#374151")
-        .text("Stage:");
-
-      // 绘制药物名称标签（纵坐标）- 只保留药品名称
+      // 绘制药物名称标签（纵坐标）
       allDrugs.forEach((drugName, drugIndex) => {
-        const y = drugIndex * (drugHeight + drugSpacing) + 25; // 从30减少到25
+        const y = drugIndex * (drugHeight + drugSpacing) + 30; // 从阶段标签下方开始
 
         // 药物名称标签
         ganttG
           .append("text")
-          .attr("x", -10)
+          .attr("x", -15)
           .attr("y", y + drugHeight / 2)
           .attr("text-anchor", "end")
           .attr("dominant-baseline", "middle")
-          .style("font-size", "11px") // 从12px减少到11px
+          .style("font-size", "12px")
           .style("font-weight", "600")
           .style("fill", "#374151")
           .text(drugName);
       });
 
-      // 绘制药物在对应阶段的条形
+      // 绘制药物在对应阶段的条形 - 水平条形图
       pdrugsData.forEach((drug) => {
         const drugIndex = allDrugs.indexOf(drug.name);
         const stageIndex = stageOrder.indexOf(drug.stage);
 
         if (drugIndex !== -1 && stageIndex !== -1) {
-          const x = stageIndex * (stageWidth + stageSpacing);
-          const y = drugIndex * (drugHeight + drugSpacing) + 25; // 从30减少到25
+          const y = drugIndex * (drugHeight + drugSpacing) + 30;
 
-          // 绘制药物条形
+          // 绘制药物条形 - 从左侧开始到对应阶段结束
+          const barStartX = 0;
+          const barEndX = stageIndex * (stageWidth + stageSpacing) + stageWidth;
+          const barWidth = barEndX - barStartX;
+
           const drugBar = ganttG
             .append("g")
             .attr("class", "drug-bar")
             .style("cursor", "pointer")
             .on("click", () => handleCardClick(drug));
 
+          // 创建渐变效果
+          const gradientId = `gradient-${drugIndex}`;
+          const gradient = svg
+            .append("defs")
+            .append("linearGradient")
+            .attr("id", gradientId)
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y1", "0%");
+
+          gradient
+            .append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", "#86EFAC"); // 浅绿色开始
+
+          gradient
+            .append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", "#22C55E"); // 深绿色结束
+
           drugBar
             .append("rect")
-            .attr("x", x + 2) // 从3减少到2
-            .attr("y", y + 2) // 从3减少到2
-            .attr("width", stageWidth - 4) // 从6减少到4
-            .attr("height", drugHeight - 4) // 从6减少到4
-            .attr("fill", colorMapping[drug.stage])
-            .attr("stroke", "white")
+            .attr("x", barStartX)
+            .attr("y", y + 2)
+            .attr("width", barWidth)
+            .attr("height", drugHeight - 4)
+            .attr("fill", `url(#${gradientId})`)
+            .attr("stroke", "#E5E7EB")
             .attr("stroke-width", 1)
-            .attr("rx", 3) // 从4减少到3
+            .attr("rx", 14) // 圆角
             .style("transition", "all 0.3s ease");
 
-          // 药物名称（在条形内）- 文字居中
+          // 药物名称（在条形内）- 确保文字在进度条内且不超出
+          let textX = barStartX + barWidth - 40; // 默认放在进度条右侧，留10px边距
+
+          // 如果进度条太短，文字居中显示
+          if (barWidth < 60) {
+            textX = barStartX + barWidth / 2;
+          }
+
+          // 确保文字不会超出进度条左边界
+          if (textX < barStartX + 15) {
+            textX = barStartX + 15;
+          }
+
           drugBar
             .append("text")
-            .attr("x", x + stageWidth / 2)
+            .attr("x", textX)
             .attr("y", y + drugHeight / 2)
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
-            .style("font-size", "9px") // 从11px减少到9px
+            .style("font-size", "10px")
             .style("font-weight", "600")
-            .style("fill", "white")
+            .style("fill", "#1F2937") // 深色文字
             .style("pointer-events", "none")
             .text(drug.name);
 
@@ -394,7 +418,7 @@ function PipelineDrugs() {
           .attr("x1", x)
           .attr("y1", 0)
           .attr("x2", x)
-          .attr("y2", chartHeight + 25) // 从30减少到25
+          .attr("y2", chartHeight + 30)
           .attr("stroke", "#E2E8F0")
           .attr("stroke-width", "1")
           .attr("stroke-dasharray", "2,2");
@@ -402,10 +426,10 @@ function PipelineDrugs() {
 
       // 水平网格线（药物分隔）
       allDrugs.forEach((_, drugIndex) => {
-        const y = drugIndex * (drugHeight + drugSpacing) + drugHeight + 25; // 从30减少到25
+        const y = drugIndex * (drugHeight + drugSpacing) + drugHeight + 30;
         ganttG
           .append("line")
-          .attr("x1", -10)
+          .attr("x1", -15)
           .attr("y1", y)
           .attr("x2", chartWidth)
           .attr("y2", y)
@@ -701,13 +725,13 @@ function PipelineDrugs() {
       ) : (
         <div
           className="bg-white rounded-lg p-4 flex justify-center"
-          style={{ height: "420px" }} // 从480px减少到420px
+          style={{ height: "520px" }} // 增加高度以容纳所有药物行
         >
           <svg
             ref={pdrugsChartRef}
             width="800" // 从900减少到800
-            height="400" // 从450减少到400
-            viewBox="0 0 800 400" // 从900 450减少到800 400
+            height="500" // 增加高度以容纳所有12行药物
+            viewBox="0 0 800 500" // 增加viewBox高度
           />
         </div>
       )}
