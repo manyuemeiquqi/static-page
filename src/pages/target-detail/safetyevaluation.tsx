@@ -97,39 +97,39 @@ function SafetyEvaluation() {
   const getSeverityColor = (severity: SafetyItem["severity"]) => {
     switch (severity) {
       case "high":
-        return "from-red-400 to-red-500";
+        return "from-emerald-500 to-teal-600";
       case "medium":
-        return "from-orange-400 to-orange-500";
+        return "from-blue-500 to-indigo-500";
       case "low":
-        return "from-green-400 to-green-500";
+        return "from-cyan-400 to-blue-400";
       default:
-        return "from-orange-400 to-orange-500";
+        return "from-blue-500 to-indigo-500";
     }
   };
 
   const getSeverityBorder = (severity: SafetyItem["severity"]) => {
     switch (severity) {
       case "high":
-        return "border-red-300";
+        return "border-emerald-400";
       case "medium":
-        return "border-orange-300";
+        return "border-blue-400";
       case "low":
-        return "border-green-300";
+        return "border-cyan-400";
       default:
-        return "border-orange-300";
+        return "border-blue-400";
     }
   };
 
   const getSeverityBadge = (severity: SafetyItem["severity"]) => {
     switch (severity) {
       case "high":
-        return "bg-red-500 text-white";
+        return "bg-emerald-600 text-white";
       case "medium":
-        return "bg-orange-500 text-white";
+        return "bg-blue-600 text-white";
       case "low":
-        return "bg-green-500 text-white";
+        return "bg-cyan-600 text-white";
       default:
-        return "bg-orange-500 text-white";
+        return "bg-blue-600 text-white";
     }
   };
 

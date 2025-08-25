@@ -7,7 +7,7 @@ import SwotAnalysis from "./swotanalysis";
 import KeyDevelopment from "./keydevelopment";
 import PositioningParadigm from "./positioningparadigm";
 import SafetyEvaluation from "./safetyevaluation";
-
+import Patents from "./patents";
 
 function TargetDetail() {
   const navigate = useNavigate();
@@ -179,7 +179,8 @@ function TargetDetail() {
           <Approveddrugs />
           <PipelineDrugs />
           <PositioningParadigm />
-          <SafetyEvaluation/>
+          <SafetyEvaluation />
+          <Patents />
           {/* <Row className="mt-4" gutter={16}>
             <Col span={12}>
               <div className="shadow-card  h-[200px]">
