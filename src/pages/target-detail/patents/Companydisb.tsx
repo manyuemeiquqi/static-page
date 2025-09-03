@@ -71,8 +71,8 @@ const CompanyDistribution: React.FC = () => {
     d3.select(svgRef.current).selectAll("*").remove();
 
     const svg = d3.select(svgRef.current);
-    const width = 350;
-    const height = 350;
+    const width = 400;
+    const height = 400;
     const margin = 10;
     const radius = Math.min(width - margin * 2, height - margin * 2) / 2 - 40;
 
@@ -250,16 +250,34 @@ const CompanyDistribution: React.FC = () => {
         Company Patent Application Distribution
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
+      <div className="flex flex-col lg:flex-row gap-4 items-center lg:items-start">
         {/* Top 5 Companies Legend */}
+        <div className="flex flex-col gap-1 min-w-[150px]">
+          {companyData.slice(0, 5).map((item, index) => (
+            <div key={index} className="flex items-start gap-1.5">
+              <div
+                className="w-2.5 h-2.5 rounded-sm mt-0.5 flex-shrink-0"
+                style={{ backgroundColor: item.color }}
+              />
+              <div className="flex-1 min-w-0">
+                <span className="text-xs text-gray-700 leading-tight break-words">
+                  {item.company}
+                </span>
+                <span className="text-xs text-gray-500 block">
+                  {item.percentage}%
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* D3 Chart */}
         <div className="flex justify-center lg:flex-1">
           <svg
             ref={svgRef}
-            width="350"
-            height="350"
-            viewBox="0 0 350 350"
+            width="400"
+            height="400"
+            viewBox="0 0 400 400"
             className="max-w-full"
           />
         </div>

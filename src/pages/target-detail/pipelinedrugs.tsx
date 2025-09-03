@@ -32,65 +32,6 @@ function PipelineDrugs() {
         "Ovarian cancer, prostate cancer, breast cancer, pancreatic ductal adenocarcinoma",
     },
     {
-      name: "Saruparib",
-      company: "AstraZeneca",
-      stage: "Phase I/III",
-      modality: "small molecule",
-      novelty: "IP on safety/efficacy in HRD cancers",
-      indication:
-        "Ovarian cancer, prostate cancer, breast cancer, pancreatic ductal adenocarcinoma",
-    },
-    {
-      name: "HRS‑1167",
-      company: "Hengrui → Merck",
-      stage: "Phase I",
-      modality: "small molecule",
-      novelty: "New PARP1-specific scaffold, ex-China license",
-      indication: "Ovarian cancer, advanced gastric cancer, lung cancer",
-    },
-    {
-      name: "NMS‑293",
-      company: "Nerviano → Merck (option)",
-      stage: "Preclinical",
-      modality: "small molecule",
-      novelty: "Brain-penetrant inhibitor, novel chemistry",
-      indication: "Glioblastoma, lung cancer, lymphoma",
-    },
-    {
-      name: "IMP1734",
-      company: "Impact / Eikon",
-      stage: "Phase I",
-      modality: "small molecule",
-      novelty: "Licensed for global co-dev, likely new patent",
-      indication:
-        "Triple negative breast cancer, prostate cancer, ovarian clear cell carcinoma",
-    },
-    {
-      name: "Senaparib",
-      company: "Impact Therapeutics",
-      stage: "Preclinical",
-      modality: "small molecule",
-      novelty: "New compound, patented preclinical inhibitor",
-      indication: "Triple negative breast cancer, glioma, Ewing's sarcoma",
-    },
-    {
-      name: "ACE‑86225106",
-      company: "Acerand Therapeutics",
-      stage: "Phase I/II",
-      modality: "small molecule",
-      novelty: "Unique novel scaffold; likely IP filings",
-      indication:
-        "Fallopian tube cancer, primary peritoneal cancer, bile duct cancer, urothelial carcinoma",
-    },
-    {
-      name: "Stenoparib",
-      company: "Allarity Therapeutics / Eisai",
-      stage: "Early clinical",
-      modality: "small molecule",
-      novelty: "Dual-target inhibitor; second-gen claims possible",
-      indication: "Colorectal cancer, ovarian cancer, malignant mesothelioma",
-    },
-    {
       name: "veliparib(failed)",
       company: "AbbVie",
       stage: "Phase III",
@@ -100,13 +41,22 @@ function PipelineDrugs() {
       indication: "Ovarian, TNBC, NSCLC",
     },
     {
-      name: "CEP-9722",
-      company: "Teva",
-      stage: "Phase I",
+      name: "Fuzuloparib",
+      company: "Jiangsu Hengrui",
+      stage: "Phase III",
       modality: "small molecule",
       novelty:
-        "Oral pro-drug of CEP-8983; improved PK and tumor penetration; composition-of-matter patents",
-      indication: "NSCLC, various solid tumors",
+        "Pyrazole-derived scaffold; Chinese IP; combination use patents with immuno-oncology agents",
+      indication: "Ovarian, breast, prostate",
+    },
+    {
+      name: "Saruparib",
+      company: "AstraZeneca",
+      stage: "Phase I/III",
+      modality: "small molecule",
+      novelty: "IP on safety/efficacy in HRD cancers",
+      indication:
+        "Ovarian cancer, prostate cancer, breast cancer, pancreatic ductal adenocarcinoma",
     },
     {
       name: "E7016",
@@ -118,13 +68,63 @@ function PipelineDrugs() {
       indication: "Melanoma",
     },
     {
-      name: "Fuzuloparib",
-      company: "Jiangsu Hengrui",
-      stage: "Phase III",
+      name: "ACE‑86225106",
+      company: "Acerand Therapeutics",
+      stage: "Phase I/II",
+      modality: "small molecule",
+      novelty: "Unique novel scaffold; likely IP filings",
+      indication:
+        "Fallopian tube cancer, primary peritoneal cancer, bile duct cancer, urothelial carcinoma",
+    },
+    {
+      name: "HRS‑1167",
+      company: "Hengrui → Merck",
+      stage: "Phase I",
+      modality: "small molecule",
+      novelty: "New PARP1-specific scaffold, ex-China license",
+      indication: "Ovarian cancer, advanced gastric cancer, lung cancer",
+    },
+    {
+      name: "IMP1734",
+      company: "Impact / Eikon",
+      stage: "Phase I",
+      modality: "small molecule",
+      novelty: "Licensed for global co-dev, likely new patent",
+      indication:
+        "Triple negative breast cancer, prostate cancer, ovarian clear cell carcinoma",
+    },
+    {
+      name: "CEP-9722",
+      company: "Teva",
+      stage: "Phase I",
       modality: "small molecule",
       novelty:
-        "Pyrazole-derived scaffold; Chinese IP; combination use patents with immuno-oncology agents",
-      indication: "Ovarian, breast, prostate",
+        "Oral pro-drug of CEP-8983; improved PK and tumor penetration; composition-of-matter patents",
+      indication: "NSCLC, various solid tumors",
+    },
+    {
+      name: "Stenoparib",
+      company: "Allarity Therapeutics / Eisai",
+      stage: "Early clinical",
+      modality: "small molecule",
+      novelty: "Dual-target inhibitor; second-gen claims possible",
+      indication: "Colorectal cancer, ovarian cancer, malignant mesothelioma",
+    },
+    {
+      name: "NMS‑293",
+      company: "Nerviano → Merck (option)",
+      stage: "Preclinical",
+      modality: "small molecule",
+      novelty: "Brain-penetrant inhibitor, novel chemistry",
+      indication: "Glioblastoma, lung cancer, lymphoma",
+    },
+    {
+      name: "Senaparib",
+      company: "Impact Therapeutics",
+      stage: "Preclinical",
+      modality: "small molecule",
+      novelty: "New compound, patented preclinical inhibitor",
+      indication: "Triple negative breast cancer, glioma, Ewing's sarcoma",
     },
   ];
 
@@ -197,12 +197,6 @@ function PipelineDrugs() {
   const handleCardClick = (drug: DrugData) => {
     setSelectedDrug(drug);
     setIsModalVisible(true);
-  };
-
-  // 关闭模态框
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-    setSelectedDrug(null);
   };
 
   useEffect(() => {

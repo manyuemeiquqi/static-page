@@ -2,8 +2,6 @@ import { Carousel, Card } from "antd";
 import {
   LeftOutlined,
   RightOutlined,
-  ExclamationCircleOutlined,
-  HeartOutlined,
   MedicineBoxOutlined,
   BugOutlined,
   SafetyOutlined,
@@ -15,11 +13,11 @@ import type { CarouselRef } from "antd/es/carousel";
 interface SafetyItem {
   id: number;
   title: string;
-  description: string;
-  details: string;
-  link: string;
+  links: Array<{
+    text: string;
+    url: string;
+  }>;
   icon: React.ReactNode;
-  severity: "high" | "medium" | "low";
 }
 
 function SafetyEvaluation() {
@@ -28,121 +26,99 @@ function SafetyEvaluation() {
   const safetyData: SafetyItem[] = [
     {
       id: 1,
-      title: "Off-Target Effects",
-      description:
-        "Some PARP inhibitors can inhibit other PARP family members like PARP2 and PARP3, and there have been observations of off-target effects on kinases as well.",
-      details:
-        "Cross-reactivity with PARP2/PARP3 and kinase inhibition may lead to unexpected cellular responses and potential therapeutic complications.",
-      link: "https://aacrjournals.org/cancerres/article/72/21/5588/576072/Trapping-of-PARP1-and-PARP2-by-Clinical-PARP",
-      icon: <ExclamationCircleOutlined className="text-2xl" />,
-      severity: "high",
+      title: "Basic Information Database",
+      links: [
+        {
+          text: "Target overall (sources: NCBI)",
+          url: "https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=142",
+        },
+        {
+          text: "Target description (sources: OpenTarget)",
+          url: "https://platform.opentargets.org/target/ENSG00000143799",
+        },
+        {
+          text: "Gene symbol (sources: ensemble)",
+          url: "https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000143799;r=1:226360210-226408154",
+        },
+        {
+          text: "Protein (sources: uniport)",
+          url: "https://www.uniprot.org/uniprotkb/P09874/entry",
+        },
+      ],
+      icon: <ExperimentOutlined className="text-2xl" />,
     },
     {
       id: 2,
-      title: "Side Effects",
-      description:
-        "Common side effects of PARP inhibitors include an increased risk of infection, bleeding problems, tiredness, and breathlessness due to a drop in the number of blood cells.",
-      details:
-        "Hematological toxicities are dose-limiting and require careful monitoring. Additional effects include nausea, fatigue, diarrhea, indigestion and taste changes, headaches, and dizziness.",
-      link: "https://www.cancerresearchuk.org/about-cancer/treatment/targeted-cancer-drugs-immunotherapy/parp-inhibitors/",
-      icon: <MedicineBoxOutlined className="text-2xl" />,
-      severity: "medium",
+      title: "Gene Function and Carcinogenetic",
+      links: [
+        {
+          text: "Abbvie published data",
+          url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9887474/",
+        },
+        {
+          text: "Human Genetics (sources: OMIM)",
+          url: "https://omim.org/entry/173870",
+        },
+        {
+          text: "Biological pathways and interactions (sources: reactome)",
+          url: "https://reactome.org/content/detail/R-HSA-201568",
+        },
+        { text: "IntOgen", url: "https://www.intogen.org/search?gene=PARP1" },
+        { text: "COSMIC", url: "https://cancer.sanger.ac.uk/cosmic" },
+      ],
+      icon: <SafetyOutlined className="text-2xl" />,
     },
     {
       id: 3,
-      title: "Cardiovascular Toxicities",
-      description:
-        "Certain PARP inhibitors, such as niraparib, have been associated with cardiovascular toxicities including hypertension, tachycardia, and palpitations.",
-      details:
-        "Cardiovascular monitoring is essential, particularly in patients with pre-existing cardiac conditions. Blood pressure management may be required during treatment.",
-      link: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7292736/",
-      icon: <HeartOutlined className="text-2xl" />,
-      severity: "high",
+      title: "Disease and Expression",
+      links: [
+        {
+          text: "Knock-out Mouse phenotypes (mouse genome informatics/MGI)",
+          url: "https://www.informatics.jax.org/marker/MGI:1340806",
+        },
+        {
+          text: "Human (sources: HPA)",
+          url: "https://www.proteinatlas.org/ENSG00000143799-PARP1/tissue",
+        },
+        {
+          text: "Splice variants (sources: GTEx portal)",
+          url: "https://www.gtexportal.org/home/gene/PARP1",
+        },
+        {
+          text: "Tissue expression in preclinical species (sources: EBI)",
+          url: "https://www.ebi.ac.uk/gwas/genes/PARP1",
+        },
+      ],
+      icon: <MedicineBoxOutlined className="text-2xl" />,
     },
     {
       id: 4,
-      title: "Hematological Toxicity",
-      description:
-        "Some PARP inhibitors may cause hematological toxicity, which can lead to issues like thrombocytopenia (a lack of platelets), resulting in increased bruising or bleeding.",
-      details:
-        "Regular blood count monitoring is crucial. Dose modifications or treatment interruptions may be necessary based on severity of hematological changes.",
-      link: "https://targetovariancancer.org.uk/parp-inhibitors-side-effects/",
+      title: "Clinical Trials and FAERS",
+      links: [
+        {
+          text: "Clinical trials.gov",
+          url: "https://www.clinicaltrials.gov/search?term=cancer%20PARP&viewType=Table",
+        },
+        {
+          text: "Public Dashboard 1",
+          url: "https://www.fda.gov/drugs/fdas-adverse-event-reporting-system-faers/fda-adverse-event-reporting-system-faers-public-dashboard",
+        },
+        {
+          text: "Public Dashboard 2",
+          url: "https://fis.fda.gov/sense/app/95239e26-e0be-42d9-a960-9a5f7f1c25ee/sheet/33a0f68e-845c-48e2-bc81-8141c6aaf772/state/analysis",
+        },
+      ],
       icon: <BugOutlined className="text-2xl" />,
-      severity: "medium",
-    },
-    {
-      id: 5,
-      title: "Drug Resistance",
-      description:
-        "Over time, tumors may develop resistance to PARP inhibitors, which can be due to various mechanisms including mutations in PARP-1 that impair its DNA binding affinity.",
-      details:
-        "Resistance mechanisms include PARP-1 mutations, restoration of homologous recombination, and replication fork protection. Combination therapies are being explored to overcome resistance.",
-      link: "https://www.mdpi.com/2072-6694/16/20/3441/",
-      icon: <SafetyOutlined className="text-2xl" />,
-      severity: "high",
-    },
-    {
-      id: 6,
-      title: "Specificity",
-      description:
-        "Designing small molecules that specifically target PARP1 without affecting other PARP family members is challenging due to the high conservation of catalytic domains.",
-      details:
-        "The structural similarity between PARP family members makes selective inhibition difficult, potentially leading to unintended biological effects and reduced therapeutic window.",
-      link: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11308664/",
-      icon: <ExperimentOutlined className="text-2xl" />,
-      severity: "medium",
     },
   ];
-
-  const getSeverityColor = (severity: SafetyItem["severity"]) => {
-    switch (severity) {
-      case "high":
-        return "from-emerald-500 to-teal-600";
-      case "medium":
-        return "from-blue-500 to-indigo-500";
-      case "low":
-        return "from-cyan-400 to-blue-400";
-      default:
-        return "from-blue-500 to-indigo-500";
-    }
-  };
-
-  const getSeverityBorder = (severity: SafetyItem["severity"]) => {
-    switch (severity) {
-      case "high":
-        return "border-emerald-400";
-      case "medium":
-        return "border-blue-400";
-      case "low":
-        return "border-cyan-400";
-      default:
-        return "border-blue-400";
-    }
-  };
-
-  const getSeverityBadge = (severity: SafetyItem["severity"]) => {
-    switch (severity) {
-      case "high":
-        return "bg-emerald-600 text-white";
-      case "medium":
-        return "bg-blue-600 text-white";
-      case "low":
-        return "bg-cyan-600 text-white";
-      default:
-        return "bg-blue-600 text-white";
-    }
-  };
 
   return (
     <div className="mt-4 bg-white rounded-lg p-6 shadow-sm">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-[#374151] mb-2">
-            Safety Evaluation
+            Safety Evaluation Reference
           </h2>
-          <p className="text-[#6B7280] text-sm">
-            Target liability assessment for PARP1 inhibitors
-          </p>
         </div>
         <div className="flex gap-2">
           <button
@@ -193,30 +169,19 @@ function SafetyEvaluation() {
           {safetyData.map((item) => (
             <div key={item.id} className="px-3 py-2">
               <Card
-                className={`h-[400px] shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${getSeverityBorder(
-                  item.severity
-                )} rounded-xl overflow-hidden group hover:-translate-y-2 hover:z-10 relative`}
+                className={`h-[400px] shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-200 rounded-xl overflow-hidden group hover:-translate-y-2 hover:z-10 relative`}
                 styles={{ body: { padding: 0, height: "100%" } }}
               >
                 <div className="h-full flex flex-col">
                   {/* Header with gradient background */}
                   <div
-                    className={`bg-gradient-to-r ${getSeverityColor(
-                      item.severity
-                    )} p-4 text-white relative overflow-hidden`}
+                    className={`bg-gradient-to-r p-4 bg-blue-500 text-white relative overflow-hidden`}
                   >
                     <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -translate-y-10 translate-x-10"></div>
                     <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-full translate-y-8 -translate-x-8"></div>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-2">
                         <div className="text-white/90">{item.icon}</div>
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityBadge(
-                            item.severity
-                          )}`}
-                        >
-                          {item.severity.toUpperCase()}
-                        </span>
                       </div>
                       <h3 className="text-lg font-bold mb-1">{item.title}</h3>
                     </div>
@@ -224,36 +189,25 @@ function SafetyEvaluation() {
 
                   {/* Content */}
                   <div className="flex-1 p-4 flex flex-col">
-                    <p className="text-[#374151] text-sm leading-relaxed mb-3 flex-1">
-                      {item.description}
-                    </p>
-
-                    <div className="border-t border-gray-100 pt-3 mt-auto">
-                      <p className="text-[#6B7280] text-xs leading-relaxed mb-3">
-                        {item.details}
-                      </p>
-
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-[#2563EB] hover:text-blue-700 text-xs font-medium transition-colors duration-200"
-                      >
-                        <span className="mr-1">Learn more</span>
-                        <svg
-                          className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    <div className="space-y-3 flex-1">
+                      {item.links.map((link, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      </a>
+                          <span className="text-[#374151] text-sm font-medium">
+                            {link.text}
+                          </span>
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#2563EB] hover:text-blue-700 transition-colors duration-200"
+                          >
+                            <RightOutlined className="text-xs" />
+                          </a>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

@@ -76,7 +76,52 @@ const customStyles = `
     z-index: 1000;
     max-width: 400px;
     animation: branchSlideIn 0.3s ease-out;
-    pointer-events: auto;
+    pointer-events: none;
+    padding: 16px;
+  }
+
+  .tree-hover-card {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e5e7eb;
+    z-index: 1000;
+    max-width: 400px;
+    padding: 20px;
+    pointer-events: none;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .tree-hover-card h4 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F2937;
+  }
+
+  .tree-hover-card .details {
+    margin: 0 0 16px 0;
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.5;
+  }
+
+  .tree-hover-card .examples {
+    margin: 0;
+    font-size: 14px;
+    color: #1F2937;
+    line-height: 1.5;
+    background: #F9FAFB;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #3B82F6;
+  }
+
+  .tree-hover-card .examples strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2937;
   }
 
   @keyframes branchSlideIn {
@@ -198,7 +243,8 @@ interface TreeNode {
 
 function PositioningParadigm() {
   const svgRef = useRef<SVGSVGElement>(null);
-  // 移除不需要的状态
+  const [hoveredNode, setHoveredNode] = useState<TreeNode | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const treatmentData: TreatmentCategory[] = [
     {
@@ -291,8 +337,8 @@ function PositioningParadigm() {
           id: `${categoryIndex}-${itemIndex}`,
           name: item.type,
           category: category.category,
-          details: "",
-          examples: "",
+          details: item.details,
+          examples: item.examples,
           color: category.color,
         })),
       })),
@@ -490,7 +536,31 @@ function PositioningParadigm() {
       })
       .style("pointer-events", "none");
 
-    // 移除点击事件处理
+    // 添加hover事件处理（仅对叶子节点）
+    nodesUpdate
+      .filter((d) => !d.children) // 只对叶子节点添加hover
+      .on("mouseenter", function (event, d) {
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (rect) {
+          setMousePosition({
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top,
+          });
+          setHoveredNode(d.data);
+        }
+      })
+      .on("mouseleave", function () {
+        setHoveredNode(null);
+      })
+      .on("mousemove", function (event) {
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (rect) {
+          setMousePosition({
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top,
+          });
+        }
+      });
 
     // 添加缩放控制按钮
     const zoomControls = svg.append("g").attr("class", "tree-zoom-controls");
@@ -555,6 +625,26 @@ function PositioningParadigm() {
             height="500"
             className="w-full max-w-full border border-gray-200 rounded-lg"
           />
+
+          {/* Hover Card */}
+          {hoveredNode && (
+            <div
+              className="tree-hover-card"
+              style={{
+                left: mousePosition.x + 15,
+                top: mousePosition.y - 10,
+                transform: mousePosition.x > 400 ? "translateX(-100%)" : "none",
+              }}
+            >
+              <h4>{hoveredNode.name}</h4>
+              <div className="details">{hoveredNode.details}</div>
+              <div className="examples">
+                <strong>Examples:</strong>
+                <br />
+                {hoveredNode.examples}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

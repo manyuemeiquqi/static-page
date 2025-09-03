@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Table, Button, Space, Modal } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import React from "react";
+import { Table } from "antd";
 import Mol2D from "./Molecule";
 
 interface PatentData {
@@ -14,9 +13,6 @@ interface PatentData {
 }
 
 const PatentTable: React.FC = () => {
-  const [selectedPatent, setSelectedPatent] = useState<PatentData | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const patentData: PatentData[] = [
     {
       id: "1",
@@ -120,18 +116,15 @@ const PatentTable: React.FC = () => {
     },
   ];
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-    setSelectedPatent(null);
-  };
-
   const columns = [
     {
       title: "Patent Number",
       render: (_: any, record: PatentData) => (
         <div className="flex flex-col gap-1 h-32 justify-center">
           <div className="font-bold text-[15px] text-[#2563eb] break-words">
-            {record.dispalykey}
+            <a href={record.link} target="_blank" rel="noopener noreferrer">
+              {record.dispalykey}
+            </a>
           </div>
         </div>
       ),
@@ -157,7 +150,7 @@ const PatentTable: React.FC = () => {
             <div className="flex justify-center">
               <Mol2D
                 smiles={record.typical}
-                width={100}
+                width={150}
                 height={100}
                 className=""
               />
@@ -168,56 +161,21 @@ const PatentTable: React.FC = () => {
       width: 120,
     },
     {
-      title: "Chemical Formula",
+      title: "Related Data",
       render: (_: any, record: PatentData) => (
         <div className="flex flex-col gap-2 h-32 justify-center items-center">
-          {record.smiles && (
-            <div className="flex justify-center">
-              <Mol2D
-                smiles={record.smiles}
-                width={100}
-                height={100}
-                className=""
-              />
-            </div>
-          )}
+          <div className="text-[14px] text-[#1e1e1e] line-clamp-6 overflow-hidden">
+            {record.redata}
+          </div>
         </div>
       ),
       width: 120,
-    },
-    // {
-    //   title: "Relevant Data",
-    //   render: (_: any, record: PatentData) => (
-    //     <div className="flex flex-col gap-1 h-32 justify-center">
-    //       <div className="text-[14px] text-[#1e1e1e] line-clamp-6 overflow-hidden">
-    //         {record.redata}
-    //       </div>
-    //     </div>
-    //   ),
-    //   width: 300,
-    // },
-    {
-      title: "Link",
-      render: (_: any, record: PatentData) => (
-        <div className="flex flex-col gap-1 h-32 justify-center">
-          <a
-            href={record.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 break-all text-sm"
-          >
-            {record.link}
-          </a>
-        </div>
-      ),
-      width: 200,
     },
   ];
 
   return (
     <div className="shadow-card mb-4">
       <div className="card-title mb-6">Patent Applications Table</div>
-
       <Table
         pagination={false}
         scroll={{ x: 1200, y: 600 }}
@@ -228,98 +186,6 @@ const PatentTable: React.FC = () => {
         size="middle"
         bordered
       />
-
-      {/* Patent Details Modal */}
-      <Modal
-        title={
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-semibold">Patent Details</span>
-            {selectedPatent && (
-              <span className="text-sm text-gray-500">
-                {selectedPatent.dispalykey}
-              </span>
-            )}
-          </div>
-        }
-        open={isModalVisible}
-        onCancel={handleCloseModal}
-        footer={[
-          <Button key="close" onClick={handleCloseModal}>
-            Close
-          </Button>,
-        ]}
-        width={800}
-      >
-        {selectedPatent && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Company:
-                </label>
-                <p className="text-sm text-gray-900 mt-1">
-                  {selectedPatent.company}
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Patent Number:
-                </label>
-                <p className="text-sm text-gray-900 mt-1">
-                  {selectedPatent.dispalykey}
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Typical:
-                </label>
-                <p className="text-sm text-gray-900 mt-1">
-                  {selectedPatent.typical}
-                </p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Relevant Data:
-                </label>
-                <div>{selectedPatent.redata}</div>
-              </div>
-            </div>
-
-            {selectedPatent.smiles && (
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Molecular Structure:
-                </label>
-                <div className="mt-2 flex justify-center">
-                  <Mol2D
-                    smiles={selectedPatent.smiles}
-                    width={200}
-                    height={200}
-                    className="border border-gray-200 rounded-lg"
-                  />
-                </div>
-              </div>
-            )}
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-600">
-                  Link:
-                </label>
-                <p className="text-sm text-gray-900 mt-1">
-                  <a
-                    href={selectedPatent.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {selectedPatent.link}
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
     </div>
   );
 };
