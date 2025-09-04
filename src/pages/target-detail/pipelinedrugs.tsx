@@ -740,7 +740,7 @@ function PipelineDrugs() {
           <div className="space-y-3">
             <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
               <span className="text-[#3B82F6]">🎯</span>
-              Key Players/Companies
+              Example1
             </h4>
             <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
               <p>
@@ -763,7 +763,7 @@ function PipelineDrugs() {
           <div className="space-y-3">
             <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
               <span className="text-[#8B5CF6]">🔬</span>
-              Emerging Players (Pipeline)
+              Example2
             </h4>
             <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
               <p>
@@ -785,7 +785,7 @@ function PipelineDrugs() {
           <div className="space-y-3">
             <h4 className="text-[16px] font-semibold text-[#1F2937] flex items-center gap-2">
               <span className="text-[#10B981]">🌏</span>
-              China-Focused Players
+              Example3
             </h4>
             <div className="space-y-2 text-[14px] text-[#4B5563] leading-relaxed">
               <p>

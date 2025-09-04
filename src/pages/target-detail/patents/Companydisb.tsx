@@ -236,7 +236,6 @@ const CompanyDistribution: React.FC = () => {
       .style("font-size", "16px")
       .style("font-weight", "600")
       .style("fill", "#374151")
-      .text("Company Patent Distribution");
 
     // Cleanup function
     return () => {
@@ -275,9 +274,9 @@ const CompanyDistribution: React.FC = () => {
         <div className="flex justify-center lg:flex-1">
           <svg
             ref={svgRef}
-            width="400"
-            height="400"
-            viewBox="0 0 400 400"
+            width="450"
+            height="450"
+            viewBox="0 0 400 500"
             className="max-w-full"
           />
         </div>
